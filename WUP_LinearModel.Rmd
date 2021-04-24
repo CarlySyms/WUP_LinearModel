@@ -27,15 +27,43 @@ data <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_str
 # SIMS~ARM
 
 ### ggplot 
+
 ```{r}
 basicNN <- ggplot(data,aes(y=SIMS,x=ARM))
 ```
   
 ### scatterplot
+
 ```{r}
 basicNN + geom_point() + geom_smooth(method=lm)
 ```  
   
+### Numerical results
+
+```{r}
+cor(SIMS~ARM,data=data)
+``` 
+
+### Inferential  (Build linear model)
+  
+```{r}
+model.1 <- lm(SIMS~ARM,data=data)
+summary.lm(model.1)
+```
+
+The line equation is SIMS = 4.1 + .05*ARM.  
+The model suggest that r-squared is .467 and another metric, the residual standard error, is 1.226.
+
+### Preductions
+
+```{r}
+new <- data.frame(ARM = 88, GRIP = 94)
+```
+```{r}
+predict (model.1, new, interval = "prediction", level = .95)
+```
+
+
 # SIMS~GRIP
   
 # SIMS~ARM+GRIP
